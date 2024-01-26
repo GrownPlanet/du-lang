@@ -1,0 +1,5 @@
+p ; print
++ ; turn bit on
+> ; move right
++ ; turn bit on
+> ; move right
