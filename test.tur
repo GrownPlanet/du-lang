@@ -1,5 +1,23 @@
-+> ; turn bit on and go to the next
-l ; load current bit
+; print the current strip
 p
-? 5 : 1
-p
+; move the pointer to the right
+>
+; move the pointer to the left
+<
+; you can do this all in one line
+><>>
+; flip the bit on
++
+; flip the bit off
+-
+; or you can toggle it
+t
+; load the selected bit
+l
+; compare them, jump to line 19 if it is 1, jump to line 17 if it is 0
+? 20: 17
+p ; this will get skipped because the bit was on
+
+>>>> ; move the pointer a bit more
++ ; put the bit on
+>p ; move one more and print output

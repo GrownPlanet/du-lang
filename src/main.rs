@@ -4,8 +4,8 @@ use std::fs;
 fn main() {
     let file = fs::read_to_string("test.tur").unwrap();
 
-    let mut strip: u32 = 0;
-    let mut pointer_location: u8 = 31;
+    let mut strip: u64 = 0;
+    let mut pointer_location: u8 = 63;
     let mut selected_bit: u8 = 0;
 
     let lines: Vec<&str> = file.lines().collect();
@@ -21,13 +21,27 @@ fn main() {
             match c {
                 'p' => {
                     // print
-                    println!("{:032b}", strip); // print the strip
-                    println!("{}^", " ".repeat((31 - pointer_location) as usize));
+                    println!("{:064b}", strip); // print the strip
+                    println!("{}^", " ".repeat((63 - pointer_location) as usize));
                     // print the cursor
                 }
-                // right and left move in the "wrong" direction because u32 is stored from right to left
-                '>' => pointer_location -= 1, // move pointer right
-                '<' => pointer_location += 1, // move pointer left
+                // right and left move in the "wrong" direction because u64 is stored from right to left
+                '>' => {
+                    // move pointer right
+                    if pointer_location as i64 - 1 < 0 {
+                        println!("Pointer went over 64!");
+                        return;
+                    }
+                    pointer_location -= 1;
+                }
+                '<' => {
+                    // move pointer left
+                    if pointer_location as i64 + 1 > 64 {
+                        println!("Pointer went under 0!");
+                        return;
+                    }
+                    pointer_location += 1;
+                }
                 't' => strip ^= 1 << pointer_location, // toggle bit
                 '+' => strip |= 1 << pointer_location, // toggle bit on
                 '-' => strip &= !(1 << pointer_location), // toggle bit off
