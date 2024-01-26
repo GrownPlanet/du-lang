@@ -1,8 +1,15 @@
 use regex::Regex;
-use std::fs;
+use std::{env, fs};
 
 fn main() {
-    let file = fs::read_to_string("test.tur").unwrap();
+    let args: Vec<String> = env::args().collect();
+
+    if args.len() != 2 {
+        println!("please use dulang {{filename}}");
+        return;
+    }
+
+    let file = fs::read_to_string(&args[1]).unwrap();
 
     let mut strip: u64 = 0;
     let mut pointer_location: u8 = 63;
