@@ -68,7 +68,7 @@ fn main() {
                     //   ^ line to jump to if current bit is 1
                     //     ^ line to jump to if current bit is 0
 
-                    let re = Regex::new(r"(?<trueline>\d+) *: *(?<falseline>\d+)").unwrap();
+                    let re = Regex::new(r"\? *(?<trueline>\d+) *: *(?<falseline>\d+)").unwrap();
 
                     let Some(caps) = re.captures(l) else {
                         println!("invalid if statement on line {}", line_index + 1);
