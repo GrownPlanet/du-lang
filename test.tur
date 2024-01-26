@@ -1,5 +1,5 @@
-p ; print
-+ ; turn bit on
-> ; move right
-+ ; turn bit on
-> ; move right
++> ; turn bit on and go to the next
+l ; load current bit
+p
+? 5 : 1
+p
